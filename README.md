@@ -39,7 +39,8 @@ python3 scripts/verify_bundle.py
 This command verifies every packaged byte against `MANIFEST.sha256`, exhausts
 all palette pairs through cyclic order nine, checks finite counting positive
 and negative fixtures, independently regenerates a small exact-output witness,
-and rejects tampered witnesses.
+rejects tampered witnesses, and rejects internal workflow identifiers or
+machine-local home paths.
 
 These executable checks validate finite instances and package integrity. They
 are sanity checks for the elementary reductions, not a formal proof of the

@@ -4,8 +4,6 @@ Status: proved project lemma, independently checked by QED and finite regression
 
 Audit date: 2026-08-26
 
-Linear issue: `RIS-561`
-
 ## Input
 
 Let `p` be prime, `G=F_p`, and let `E subset G`. Define the simple graph
@@ -13,7 +11,8 @@ Let `p` be prime, `G=F_p`, and let `E subset G`. Define the simple graph
 
 `e=|E|`, `r=alpha(Gamma_E)`, and `H=e+r`.
 
-RIS-560 supplies such palettes for all sufficiently large primes with
+The preceding interval-to-cyclic transfer supplies such palettes for all
+sufficiently large primes with
 
 `2 sqrt(p)-1 <= H <= p^(1/2+eta_p)`, where `eta_p -> 0`.
 

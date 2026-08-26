@@ -2,8 +2,6 @@
 
 Audit date: 2026-08-26
 
-Linear issue: `RIS-560`
-
 Source commit: `d28713ac8245ca86a686b8c67370a8d19d81b242`
 
 This audit checks that the theorem imported by the prime-cyclic transfer is

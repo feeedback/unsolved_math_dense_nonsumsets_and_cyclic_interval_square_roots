@@ -5,8 +5,6 @@ and statement audit passed; independent adversarial review remains pending.
 
 Audit date: 2026-08-26
 
-Linear issue: `RIS-560`
-
 ## Result to transfer
 
 For an integer `N >= 1` and a palette
@@ -89,8 +87,8 @@ Consequently
 
 Together with the constructed upper bound, this proves
 `|E|+alpha(Gamma_E)=P^(1/2+o(1))`. The lower estimate is not needed by the
-nonsumset construction, but it makes the score statement in `RIS-560`
-literally two-sided.
+nonsumset construction, but it makes the displayed score statement literally
+two-sided.
 
 ## Lemma 2: a square-root palette gives a dense nonsumset
 
