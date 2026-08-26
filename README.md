@@ -1,7 +1,8 @@
 # Dense nonsumsets and cyclic-interval square roots
 
-Private reviewer package for `AIM-COMBINATORICS-0232`, AIM Problem 2.7
-(B. Green).
+Private reviewer package for
+[`AIM-COMBINATORICS-0232`](https://www.unsolvedmath.com/problems/AIM-COMBINATORICS-0232),
+AIM Problem 2.7 (B. Green).
 
 ## Claimed result
 
