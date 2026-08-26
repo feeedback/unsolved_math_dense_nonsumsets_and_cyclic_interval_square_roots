@@ -1,0 +1,112 @@
+{
+  "catalog_title": "Dense nonsumsets and cyclic-interval square roots",
+  "files": [
+    {
+      "path": ".github/workflows/verify.yml",
+      "role": "standard-library verification CI"
+    },
+    {
+      "path": ".gitignore",
+      "role": "ignore local verification and TeX outputs"
+    },
+    {
+      "path": "AI_DISCLOSURE.md",
+      "role": "AI assistance and evidence disclosure"
+    },
+    {
+      "path": "CLAIMS.md",
+      "role": "claim and dependency boundary"
+    },
+    {
+      "path": "DEPENDENCIES.md",
+      "role": "pinned imported theorem and optional Lean reproduction"
+    },
+    {
+      "path": "README.md",
+      "role": "reviewer entry point and reproduction guide"
+    },
+    {
+      "path": "REVIEW_CHECKLIST.md",
+      "role": "adversarial review questions"
+    },
+    {
+      "path": "REVIEW_TERMS.md",
+      "role": "private-review distribution boundary"
+    },
+    {
+      "path": "external/erdos-788/AxiomCheck.lean",
+      "role": "minimal imported-theorem axiom and bridge check"
+    },
+    {
+      "path": "external/erdos-788/rebuild-manifest.json",
+      "role": "pinned external Lean rebuild manifest"
+    },
+    {
+      "path": "external/erdos-788/rebuild-report.md",
+      "role": "external Lean rebuild result and evidence boundary"
+    },
+    {
+      "path": "paper/aim-nonsumsets.pdf",
+      "role": "compiled proof manuscript"
+    },
+    {
+      "path": "paper/aim-nonsumsets.tex",
+      "role": "complete human-readable proof manuscript source"
+    },
+    {
+      "path": "paper/verification.md",
+      "role": "manuscript build and mathematical assembly audit"
+    },
+    {
+      "path": "problem/definitions.md",
+      "role": "sumset conventions and excluded interpretations"
+    },
+    {
+      "path": "problem/sources.md",
+      "role": "primary sources, exact pins, and checksums"
+    },
+    {
+      "path": "problem/statement.md",
+      "role": "canonical and normalized problem statement"
+    },
+    {
+      "path": "proof/erdos-788-statement-audit.md",
+      "role": "formal statement fidelity audit for the imported theorem"
+    },
+    {
+      "path": "proof/exact-output-construction.md",
+      "role": "new exact-output deletion proof"
+    },
+    {
+      "path": "proof/interval-palette-transfer.md",
+      "role": "new interval-to-cyclic transfer proof"
+    },
+    {
+      "path": "scripts/check_unrealized_deletion.py",
+      "role": "independent finite exact-output witness checker"
+    },
+    {
+      "path": "scripts/find_unrealized_deletion.py",
+      "role": "small finite exact-output witness generator"
+    },
+    {
+      "path": "scripts/verify_bundle.py",
+      "role": "one-command checksum and test runner"
+    },
+    {
+      "path": "scripts/verify_interval_palette_transfer.py",
+      "role": "dependency-light finite transfer and counting checker"
+    },
+    {
+      "path": "tests/test_interval_palette_transfer.py",
+      "role": "exhaustive small-order transfer and counting tests"
+    },
+    {
+      "path": "tests/test_unrealized_deletion.py",
+      "role": "independent witness and tamper-rejection tests"
+    }
+  ],
+  "problem_id": "AIM-COMBINATORICS-0232",
+  "repository_name": "unsolved_math_dense_nonsumsets_and_cyclic_interval_square_roots",
+  "schema_version": 1
+}

@@ -1,0 +1,370 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Fp}{\mathbb F_p}
+\newcommand{\Zp}{\mathbb Z_p}
+\newcommand{\alphaG}{\alpha}
+
+\title{From interval palettes to dense nonsumsets in prime fields}
+\author{Project proof artifact for AIM Problem 2.7}
+\date{26 August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a prime $p$, let $M(p)$ be the greatest cardinality of a subset of
+$\mathbb F_p$ which is not $B+B$ for any $B\subseteq\mathbb F_p$, with equal
+summands allowed.  We prove
+\[
+  M(p)=p-p^{1/2+o(1)}.
+\]
+The new deduction combines Noga Alon's universal large-set theorem with the
+interval-palette theorem in Shouqiao Wang's pinned proposed solution of
+Erd\H{o}s Problem 788.  Two interval palettes are transferred to consecutive
+charts of $\mathbb Z_p$; an exact finite counting argument then chooses a
+second deletion set which cannot be realized by any self-sumset root.  We
+state the imported theorem and all reductions explicitly.  Wang's source is
+machine-checked and was rebuilt locally, but is recent and not peer-reviewed;
+this artifact therefore distinguishes mathematical deduction from community
+acceptance and novelty.
+\end{abstract}
+
+\section{Statement and notation}
+
+For $B\subseteq\Fp$, define the unrestricted self-sumset
+\[
+  B+B=\{b_1+b_2:b_1,b_2\in B\}.
+\]
+The empty root is allowed, and $b_1=b_2$ is allowed.  Define
+\[
+  M(p)=\max\{|A|:A\subseteq\Fp\text{ and }A\ne B+B
+                    \text{ for every }B\subseteq\Fp\}
+\]
+and put $d(p)=p-M(p)$.  Thus $d(p)$ is the strict complement threshold,
+not the inclusive threshold used in some earlier papers.
+
+\begin{theorem}[AIM Problem 2.7]\label{thm:main}
+As $p$ tends to infinity through the primes,
+\[
+  d(p)=p^{1/2+o(1)}
+  \qquad\text{and}\qquad
+  M(p)=p-p^{1/2+o(1)}.
+\]
+\end{theorem}
+
+All logarithms are natural.  We identify $\Fp$ with the additive group
+$\Zp$ and with its standard representatives $\{0,\ldots,p-1\}$.
+
+\section{Two imported results}
+
+The lower estimate follows from the following exact inclusive statement.
+
+\begin{theorem}[Alon, Theorem 2.1 \cite{Alon2007}]\label{thm:alon}
+For every sufficiently large prime $p$, if $F\subseteq\Zp$ and
+\[
+  |F|\le \frac{1}{4000}\sqrt{\frac p{\log p}},
+\]
+then $\Zp\setminus F=A+A$ for some $A\subseteq\Zp$.
+\end{theorem}
+
+We next state exactly the consequence of Wang's interval theorem which is
+used here.  For $N\ge2$ and
+$Q\subseteq\{1,\ldots,2N-3\}$, let $H_Q$ be the simple graph on
+\[
+  [N]_0=\{0,1,\ldots,N-1\}
+\]
+in which distinct $x,y$ are adjacent precisely when $x+y\in Q$.
+
+\begin{theorem}[Interval-palette theorem \cite{Wang2026}]\label{thm:interval}
+There is an absolute constant $C>0$ such that, for every sufficiently large
+integer $N$, there is $Q_N\subseteq\{1,\ldots,2N-3\}$ satisfying
+\[
+  |Q_N|+\alphaG(H_{Q_N})
+  \le (N+1)^{1/2+\Delta_N},
+  \qquad
+  \Delta_N=C\left(\frac{\log\log(N+1)}{\log(N+1)}\right)^{1/3}.
+\]
+\end{theorem}
+
+For completeness, this is the exact normalization of the cited result.
+Wang writes
+\[
+  I_n=(n,2n)\cap\mathbb N=\{n+1,\ldots,2n-1\}
+\]
+and proves both the min--max identity
+\[
+  f(n)=\min_{D\subseteq J_n}\bigl(|D|+\alpha(G_D)\bigr),
+\]
+with the minimum unchanged when $D$ is restricted to attainable sums of two
+distinct elements of $I_n$, and the upper bound
+\[
+  f(n)\le n^{1/2+C(\log\log n/\log n)^{1/3}}.
+\]
+Set $n=N+1$, translate $I_n$ by $-(n+1)$, and translate every palette sum by
+$-(2n+2)$.  The vertex set becomes $[N]_0$, the attainable distinct sums
+become exactly $\{1,\ldots,2N-3\}$, and the graph and its independence number
+are preserved.  This gives Theorem~\ref{thm:interval} without an asymptotic
+change of parameters.
+
+\section{Transfer to a cyclic palette}
+
+For $E\subseteq\Zp$, let $\Gamma_E$ be the simple graph on $\Zp$ in which
+distinct $x,y$ are adjacent exactly when $x+y\in E$.
+
+\begin{lemma}[Two-chart transfer]\label{lem:transfer}
+For every sufficiently large odd prime $p$, there is $E\subseteq\Zp$ such
+that, with
+\[
+  e=|E|,\qquad r=\alphaG(\Gamma_E),\qquad H=e+r,
+\]
+one has
+\[
+  2\sqrt p-1\le H\le p^{1/2+\eta_p}
+\]
+for a sequence $\eta_p\to0$.
+\end{lemma}
+
+\begin{proof}
+Put
+\[
+ N_0=\frac{p+1}{2},\quad N_1=\frac{p-1}{2},\quad
+ a_0=0,\quad a_1=N_0,
+\]
+and partition $\Zp$ into the two standard intervals
+\[
+ V_i=a_i+\{0,\ldots,N_i-1\}\qquad(i=0,1).
+\]
+Choose $Q_{N_i}$ from Theorem~\ref{thm:interval} and define
+\[
+ E_i=\{2a_i+q\pmod p:q\in Q_{N_i}\},
+ \qquad E=E_0\cup E_1.
+\]
+Because $Q_{N_0}\subseteq\{1,\ldots,p-2\}$ and
+$Q_{N_1}\subseteq\{1,\ldots,p-4\}$, reduction modulo $p$ is injective on
+each palette.  Cross-palette collisions are allowed and only decrease $|E|$.
+Thus
+\[
+ e\le |Q_{N_0}|+|Q_{N_1}|.                 \tag{3.1}
+\]
+
+Let $R$ be independent in $\Gamma_E$.  For fixed $i$, define
+\[
+ R_i=\{u\in[N_i]_0:a_i+u\in R\}.
+\]
+If distinct $u,v\in R_i$ satisfied $u+v\in Q_{N_i}$, then
+\[
+ (a_i+u)+(a_i+v)\equiv2a_i+u+v\pmod p\in E_i\subseteq E,
+\]
+contradicting independence.  Hence $R_i$ is independent in $H_{Q_{N_i}}$.
+The two charts partition $\Zp$, so
+\[
+ r\le\alphaG(H_{Q_{N_0}})+\alphaG(H_{Q_{N_1}}).       \tag{3.2}
+\]
+Let $\varepsilon_p=\max_i\Delta_{N_i}$ and
+$\eta_p=\varepsilon_p+\log 2/\log p$.  Equations (3.1), (3.2), and
+Theorem~\ref{thm:interval} give
+\[
+ H\le\sum_{i=0}^1(N_i+1)^{1/2+\Delta_{N_i}}
+   \le2p^{1/2+\varepsilon_p}=p^{1/2+\eta_p}.
+\]
+Since $N_i\to\infty$, we have $\eta_p\to0$.
+
+For the lower estimate, each vertex of $\Gamma_E$ has degree at most $e$:
+for fixed $x$ and fixed $s\in E$, at most one neighbor can satisfy $x+y=s$.
+A graph of maximum degree $e$ has an independent set of size at least
+$p/(e+1)$ by greedy coloring.  Therefore
+\[
+ H=e+r\ge e+\frac p{e+1}
+   =(e+1)+\frac p{e+1}-1\ge2\sqrt p-1.
+\]
+This argument uses only distinct-pair edges, so no diagonal convention has
+been changed.
+\end{proof}
+
+\section{The exact-output deletion}
+
+\begin{lemma}[Strict finite counting gap]\label{lem:count}
+With $e,r,H,\eta_p$ as in Lemma~\ref{lem:transfer}, for every sufficiently
+large $p$,
+\[
+  3\le H,\qquad 4H\le p-e,
+\]
+and
+\[
+  \binom{p-e}{4H}>\sum_{j=0}^{r}\binom pj.          \tag{4.1}
+\]
+\end{lemma}
+
+\begin{proof}
+Take $p$ large enough that
+\[
+ \eta_p\le\frac1{16},\qquad
+ \frac{\log8}{\log p}\le\frac1{16},\qquad
+ 5p^{9/16}\le p.                                  \tag{4.2}
+\]
+Lemma~\ref{lem:transfer} gives
+\[
+ 2\sqrt p-1\le H\le p^{1/2+\eta_p}\le p^{9/16}.
+\]
+Hence $H\ge3$ eventually and, because $e\le H$,
+$e+4H\le5p^{9/16}\le p$.
+
+For integers $0<k\le n$,
+\[
+ \binom nk=\prod_{i=0}^{k-1}\frac{n-i}{k-i}
+ \ge\left(\frac nk\right)^k,
+\]
+because $(n-i)/(k-i)\ge n/k$ is equivalent to $i(n-k)\ge0$.
+Apply this with $n=p-e$ and $k=4H$.  Since $e\le H\le p^{9/16}\le p/2$
+eventually,
+\[
+ \log\binom{p-e}{4H}
+ \ge4H\log\frac{p-e}{4H}
+ \ge4H\log\frac p{8H}.
+\]
+Using (4.2) and $H\le p^{9/16}$, the last logarithm is at least
+$\frac38\log p$, and therefore
+\[
+ \binom{p-e}{4H}\ge p^{3H/2}.                    \tag{4.3}
+\]
+On the other hand,
+\[
+ \sum_{j=0}^{r}\binom pj
+ \le\sum_{j=0}^{r}p^j
+ \le p^{r+1}\le p^{H+1}\le p^{4H/3}<p^{3H/2},
+\]
+where $H+1\le4H/3$ follows from $H\ge3$.  Combining this strict inequality
+with (4.3) proves (4.1).
+\end{proof}
+
+\begin{lemma}[Unrealized output]\label{lem:deletion}
+For every sufficiently large prime $p$, there is $T\subseteq\Zp\setminus E$
+with $|T|=4H$ such that
+\[
+ A_p=\Zp\setminus(E\cup T)
+\]
+is not $B+B$ for any $B\subseteq\Zp$.  Moreover,
+\[
+ |\Zp\setminus A_p|\le5p^{1/2+\eta_p}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal T$ be the family of all $4H$-element subsets of
+$\Zp\setminus E$.  By Lemma~\ref{lem:count},
+\[
+ |\mathcal T|=\binom{p-e}{4H}>
+ \sum_{j=0}^{r}\binom pj.                         \tag{4.4}
+\]
+Call $T\in\mathcal T$ realized if
+\[
+ B+B=\Zp\setminus(E\cup T)                        \tag{4.5}
+\]
+for some $B\subseteq\Zp$.  Equation (4.5) implies $(B+B)\cap E=\varnothing$.
+Thus no distinct pair $x,y\in B$ has $x+y\in E$, so $B$ is independent in
+$\Gamma_E$ and $|B|\le r$.  There are at most the right-hand side of (4.4)
+such roots.  In addition, a fixed root determines at most one deletion set,
+because (4.5) forces
+\[
+ T=(\Zp\setminus(B+B))\setminus E.                \tag{4.6}
+\]
+Consequently (4.4) leaves some $T$ unrealized.  The corresponding $A_p$ is a
+nonsumset.  Finally, $E\cap T=\varnothing$ and $e\le H$, so
+\[
+ |\Zp\setminus A_p|=e+4H\le5H\le5p^{1/2+\eta_p}.
+\]
+Equal summands cause no gap: they remain part of (4.5), while distinct pairs
+provide the necessary independence condition and (4.6) uses the full sumset.
+\end{proof}
+
+\section{Proof of the main theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Set
+\[
+ q_p=\left\lfloor\frac1{4000}\sqrt{\frac p{\log p}}\right\rfloor.
+\]
+If $S\subseteq\Zp$ has $|S|\ge p-q_p$, then its complement satisfies the
+inclusive hypothesis of Theorem~\ref{thm:alon}; hence $S$ is a self-sumset.
+No nonsumset has size at least $p-q_p$, and integrality gives
+\[
+ M(p)\le p-q_p-1,
+ \qquad d(p)\ge q_p+1>\frac1{4000}\sqrt{\frac p{\log p}}.     \tag{5.1}
+\]
+
+Lemma~\ref{lem:deletion} supplies a nonsumset $A_p$ with complement at most
+$5p^{1/2+\eta_p}$.  Hence
+\[
+ d(p)=p-M(p)\le p-|A_p|\le5p^{1/2+\eta_p}.         \tag{5.2}
+\]
+Taking logarithms in (5.1) and (5.2) yields
+\[
+ \frac12-\frac{\log\log p}{2\log p}-\frac{\log4000}{\log p}
+ <\frac{\log d(p)}{\log p}
+ \le\frac12+\eta_p+\frac{\log5}{\log p}.
+\]
+Both outer expressions tend to $1/2$.  Therefore
+$d(p)=p^{1/2+o(1)}$, and the defining identity $M(p)=p-d(p)$ gives
+$M(p)=p-p^{1/2+o(1)}$.
+\end{proof}
+
+\section{Verification and evidence boundary}
+
+The imported Wang repository was pinned at commit
+\[
+\texttt{d28713ac8245ca86a686b8c67370a8d19d81b242}.
+\]
+Its Lean 4.27 development used Mathlib commit
+\[
+\texttt{a3a10db0e9d66acbebf76c5e6a135066525ac900}
+\]
+and completed all 7,936 local build jobs.  The final theorem depends only on
+\texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound}; the
+audited source contains no \texttt{sorry}, \texttt{axiom}, or \texttt{admit}.
+The interval normalization above was checked against both the paper and the
+formal definitions.
+
+The new cyclic transfer and deletion proof passed a separate QED xhigh
+structural audit, a detailed step-by-step audit, deterministic finite
+falsification checks, and final verdict \texttt{DONE}.  These checks establish
+the repository's proof claim relative to the pinned imported theorem.  They do
+not establish novelty, peer review, or community acceptance.  In particular,
+the source itself is titled a proposed solution and the public Erd\H{o}s
+problem page remained marked open at the audit date.
+
+\begin{thebibliography}{9}
+
+\bibitem{AIM2004}
+E. Croot and V. F. Lev (collectors),
+\emph{Problems Presented at the Workshop on Recent Trends in Additive
+Combinatorics}, AIM workshop list, Problem 2.7 (B. Green), 2004.
+\url{https://aimath.org/WWN/additivecomb/additivecomb.pdf}.
+
+\bibitem{Alon2007}
+N. Alon,
+\emph{Large sets in finite fields are sumsets},
+J. Number Theory 126 (2007), 110--118.
+\url{https://web.math.princeton.edu/~nalon/PDFS/sumset.pdf}.
+
+\bibitem{Wang2026}
+S. Wang,
+\emph{A Proposed Solution to Erd\H{o}s Problem 788},
+pinned repository artifact, commit
+\texttt{d28713ac8245ca86a686b8c67370a8d19d81b242}, 2026.
+\url{https://github.com/ShouqiaoW/erdos/tree/d28713ac8245ca86a686b8c67370a8d19d81b242/788}.
+
+\end{thebibliography}
+
+\end{document}

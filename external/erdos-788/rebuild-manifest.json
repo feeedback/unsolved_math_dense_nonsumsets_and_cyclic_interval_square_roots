@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "experiment": "erdos-788-pinned-clean-rebuild",
+  "completed_at_utc": "2026-08-26T00:40:18Z",
+  "source": {
+    "repository": "https://github.com/ShouqiaoW/erdos.git",
+    "directory": "788/lean",
+    "commit": "d28713ac8245ca86a686b8c67370a8d19d81b242",
+    "remote_main_at_check": "d28713ac8245ca86a686b8c67370a8d19d81b242",
+    "mathlib_commit": "a3a10db0e9d66acbebf76c5e6a135066525ac900"
+  },
+  "environment": {
+    "os": "macOS 26.6.2 build 25G83",
+    "architecture": "arm64",
+    "lean": "4.27.0 db93fe1608548721853390a10cd40580fe7d22ae",
+    "lake": "5.0.0-src+db93fe1"
+  },
+  "commands": [
+    "lake build",
+    "lake env lean AxiomCheck.lean",
+    "rg -n '\\bsorry\\b|\\badmit\\b|\\baxiom\\b|native_decide|unsafe' -g '*.lean' ."
+  ],
+  "inputs": {
+    "paper_tex_sha256": "23a67830fc417649992a6c247b441ee79fb50d5e51db8f39a5c9b5f4db907b17",
+    "lean_toolchain_sha256": "d55ca0039a5479db5b38919d005b2c427b89b3be4f0184a20f2f4eae931f5bdb",
+    "lakefile_toml_sha256": "364d61ee4d27038fbaa4b98eff0cd747e2cdf2993f3fbf931be6ad36ddb2b77e",
+    "lake_manifest_json_sha256": "53a66d4a9b8b47e0c95f214d71125fe91701548e5db6dee87b13357f829dd0ac",
+    "statement_lean_sha256": "66f4950df5d2db6856fcd5720b86bb1931c9131e619789c33eb5783b83ec3b76",
+    "final_theorem_lean_sha256": "50f2ffb56595ce8f60dc117bc344f8c19a0a1a99d1c2d39035b8fda958bb8c6f",
+    "normalization_lean_sha256": "d0fe312a0e15a9b1e031852c325fb8bc25540a93f60cc4da814dabb7fe11d03b",
+    "graph_formulation_lean_sha256": "6ab86e376b3729a02d287e7c0703efe06773f1931ce9d6b7e9ce5836539b492d",
+    "axiom_check_sha256": "ac8b3c56d8434743abb4484504d6d4960a8cb74aa560f95191969ec2f59656af"
+  },
+  "results": {
+    "clean_build": "passed",
+    "build_jobs": 7936,
+    "tracked_files_in_lean_tree": 47,
+    "tracked_lean_files": 43,
+    "forbidden_token_matches": 0,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  }
+}
