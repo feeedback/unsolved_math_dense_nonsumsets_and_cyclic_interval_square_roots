@@ -30,16 +30,56 @@ summands allowed.  We prove
 \[
   M(p)=p-p^{1/2+o(1)}.
 \]
-The new deduction combines Noga Alon's universal large-set theorem with the
+The proof combines Noga Alon's universal large-set theorem with the
 interval-palette theorem in Shouqiao Wang's pinned proposed solution of
-Erd\H{o}s Problem 788.  Two interval palettes are transferred to consecutive
-charts of $\mathbb Z_p$; an exact finite counting argument then chooses a
-second deletion set which cannot be realized by any self-sumset root.  We
-state the imported theorem and all reductions explicitly.  Wang's source is
-machine-checked and was rebuilt locally, but is recent and not peer-reviewed;
-this artifact therefore distinguishes mathematical deduction from community
-acceptance and novelty.
+Erd\H{o}s Problem 788.  We transfer two interval palettes to consecutive
+charts of $\mathbb Z_p$, bound every possible self-sumset root by an
+independence number, and use a strict finite count to choose an unrealized
+output.  All imported statements and new reductions are identified
+explicitly.  Wang's theorem is machine-checked but recent and not
+peer-reviewed, so the result is presented as a candidate proof for expert
+review rather than as a community-accepted resolution.
 \end{abstract}
+
+\section{Introduction}
+
+The problem, recorded as AIM Problem 2.7 by B. Green \cite{AIM2004}, asks for
+the largest size of a subset of a prime field which is not an unrestricted
+self-sumset.  Theorem~\ref{thm:main} determines the exponent of the missing
+part: the extremal nonsumsets have $p^{1/2+o(1)}$ missing elements.  The
+argument is short once one has a suitable low-score graph on the additive
+group, but the passage from the available interval graph to the cyclic group
+and the requirement of an \emph{exact} sumset output both need justification.
+
+\paragraph{Contribution and dependency boundary.}
+There are two imported results.  Alon's published theorem gives the lower
+bound on the number of missing elements.  Wang's interval-palette theorem
+gives graphs whose palette size plus independence number is
+$N^{1/2+o(1)}$.  The new part of this paper consists of the normalization of
+Wang's theorem, the two-chart cyclic transfer, and the exact-output deletion
+argument.  The mathematical deduction is complete relative to the two stated
+inputs.  Appendix~\ref{sec:evidence} records separately why the recent Wang
+input is treated as machine-checked evidence rather than as an already
+accepted literature result.
+
+\paragraph{Proof roadmap.}
+The proof has five steps.
+\begin{enumerate}
+  \item Alon's theorem shows that deleting at most
+  $\frac1{4000}\sqrt{p/\log p}$ elements always leaves a self-sumset.
+  \item Wang's theorem supplies an interval graph whose palette size $e$ and
+  independence number $r$ have sum $p^{1/2+o(1)}$ after rescaling.
+  \item Two consecutive interval charts cover $\mathbb Z_p$ and transfer
+  these palettes to a cyclic graph $\Gamma_E$ without increasing the score
+  $H=e+r$ beyond $p^{1/2+o(1)}$.
+  \item If $(B+B)\cap E=\varnothing$, then the distinct elements of $B$ form
+  an independent set in $\Gamma_E$, so every possible root has $|B|\le r$.
+  \item There are more $4H$-element deletion sets outside $E$ than there are
+  roots of size at most $r$.  One deletion therefore produces an exact output
+  which is not $B+B$ for any $B$.
+\end{enumerate}
+The lower and upper estimates for the number of missing elements then have
+the same exponent.
 
 \section{Statement and notation}
 
@@ -123,6 +163,21 @@ change of parameters.
 For $E\subseteq\Zp$, let $\Gamma_E$ be the simple graph on $\Zp$ in which
 distinct $x,y$ are adjacent exactly when $x+y\in E$.
 
+\begin{lemma}[Root-size reduction]\label{lem:root-bound}
+For any $E,B\subseteq\Zp$, if $(B+B)\cap E=\varnothing$, then $B$ is
+independent in $\Gamma_E$.  In particular,
+\[
+  |B|\le\alphaG(\Gamma_E).
+\]
+\end{lemma}
+
+\begin{proof}
+If distinct $x,y\in B$ were adjacent, then
+$x+y\in(B+B)\cap E$, contrary to the hypothesis.  Thus no two distinct
+vertices of $B$ are adjacent.  Notice that equal summands remain in $B+B$;
+the conclusion only needs the distinct-pair edges of the simple graph.
+\end{proof}
+
 \begin{lemma}[Two-chart transfer]\label{lem:transfer}
 For every sufficiently large odd prime $p$, there is $E\subseteq\Zp$ such
 that, with
@@ -156,7 +211,7 @@ $Q_{N_1}\subseteq\{1,\ldots,p-4\}$, reduction modulo $p$ is injective on
 each palette.  Cross-palette collisions are allowed and only decrease $|E|$.
 Thus
 \[
- e\le |Q_{N_0}|+|Q_{N_1}|.                 \tag{3.1}
+ e\le |Q_{N_0}|+|Q_{N_1}|.                 \label{eq:palette-size}
 \]
 
 Let $R$ be independent in $\Gamma_E$.  For fixed $i$, define
@@ -170,11 +225,13 @@ If distinct $u,v\in R_i$ satisfied $u+v\in Q_{N_i}$, then
 contradicting independence.  Hence $R_i$ is independent in $H_{Q_{N_i}}$.
 The two charts partition $\Zp$, so
 \[
- r\le\alphaG(H_{Q_{N_0}})+\alphaG(H_{Q_{N_1}}).       \tag{3.2}
+ r\le\alphaG(H_{Q_{N_0}})+\alphaG(H_{Q_{N_1}}).
+                                                        \label{eq:independence}
 \]
 Let $\varepsilon_p=\max_i\Delta_{N_i}$ and
-$\eta_p=\varepsilon_p+\log 2/\log p$.  Equations (3.1), (3.2), and
-Theorem~\ref{thm:interval} give
+$\eta_p=\varepsilon_p+\log 2/\log p$.
+Equations~\eqref{eq:palette-size} and \eqref{eq:independence}, together with
+Theorem~\ref{thm:interval}, give
 \[
  H\le\sum_{i=0}^1(N_i+1)^{1/2+\Delta_{N_i}}
    \le2p^{1/2+\varepsilon_p}=p^{1/2+\eta_p}.
@@ -203,7 +260,7 @@ large $p$,
 \]
 and
 \[
-  \binom{p-e}{4H}>\sum_{j=0}^{r}\binom pj.          \tag{4.1}
+  \binom{p-e}{4H}>\sum_{j=0}^{r}\binom pj.          \label{eq:counting-gap}
 \]
 \end{lemma}
 
@@ -212,7 +269,7 @@ Take $p$ large enough that
 \[
  \eta_p\le\frac1{16},\qquad
  \frac{\log8}{\log p}\le\frac1{16},\qquad
- 5p^{9/16}\le p.                                  \tag{4.2}
+ 5p^{9/16}\le p.                                  \label{eq:large-p}
 \]
 Lemma~\ref{lem:transfer} gives
 \[
@@ -234,10 +291,10 @@ eventually,
  \ge4H\log\frac{p-e}{4H}
  \ge4H\log\frac p{8H}.
 \]
-Using (4.2) and $H\le p^{9/16}$, the last logarithm is at least
+Using \eqref{eq:large-p} and $H\le p^{9/16}$, the last logarithm is at least
 $\frac38\log p$, and therefore
 \[
- \binom{p-e}{4H}\ge p^{3H/2}.                    \tag{4.3}
+ \binom{p-e}{4H}\ge p^{3H/2}.                    \label{eq:binomial-lower}
 \]
 On the other hand,
 \[
@@ -246,7 +303,7 @@ On the other hand,
  \le p^{r+1}\le p^{H+1}\le p^{4H/3}<p^{3H/2},
 \]
 where $H+1\le4H/3$ follows from $H\ge3$.  Combining this strict inequality
-with (4.3) proves (4.1).
+with \eqref{eq:binomial-lower} proves \eqref{eq:counting-gap}.
 \end{proof}
 
 \begin{lemma}[Unrealized output]\label{lem:deletion}
@@ -266,27 +323,29 @@ Let $\mathcal T$ be the family of all $4H$-element subsets of
 $\Zp\setminus E$.  By Lemma~\ref{lem:count},
 \[
  |\mathcal T|=\binom{p-e}{4H}>
- \sum_{j=0}^{r}\binom pj.                         \tag{4.4}
+ \sum_{j=0}^{r}\binom pj.                         \label{eq:deletion-count}
 \]
 Call $T\in\mathcal T$ realized if
 \[
- B+B=\Zp\setminus(E\cup T)                        \tag{4.5}
+ B+B=\Zp\setminus(E\cup T).                       \label{eq:realized-output}
 \]
-for some $B\subseteq\Zp$.  Equation (4.5) implies $(B+B)\cap E=\varnothing$.
-Thus no distinct pair $x,y\in B$ has $x+y\in E$, so $B$ is independent in
-$\Gamma_E$ and $|B|\le r$.  There are at most the right-hand side of (4.4)
-such roots.  In addition, a fixed root determines at most one deletion set,
-because (4.5) forces
+for some $B\subseteq\Zp$.  Equation~\eqref{eq:realized-output} implies
+$(B+B)\cap E=\varnothing$.  Lemma~\ref{lem:root-bound} therefore gives
+$|B|\le r$.  There are at most the right-hand side of
+\eqref{eq:deletion-count} such roots.  In addition, a fixed root determines
+at most one deletion set, because \eqref{eq:realized-output} forces
 \[
- T=(\Zp\setminus(B+B))\setminus E.                \tag{4.6}
+ T=(\Zp\setminus(B+B))\setminus E.                \label{eq:forced-deletion}
 \]
-Consequently (4.4) leaves some $T$ unrealized.  The corresponding $A_p$ is a
-nonsumset.  Finally, $E\cap T=\varnothing$ and $e\le H$, so
+Consequently \eqref{eq:deletion-count} leaves some $T$ unrealized.  The
+corresponding $A_p$ is a nonsumset.  Finally, $E\cap T=\varnothing$ and
+$e\le H$, so
 \[
  |\Zp\setminus A_p|=e+4H\le5H\le5p^{1/2+\eta_p}.
 \]
-Equal summands cause no gap: they remain part of (4.5), while distinct pairs
-provide the necessary independence condition and (4.6) uses the full sumset.
+Equal summands cause no gap: they remain part of
+\eqref{eq:realized-output}, while distinct pairs provide the necessary
+independence condition and \eqref{eq:forced-deletion} uses the full sumset.
 \end{proof}
 
 \section{Proof of the main theorem}
@@ -301,15 +360,16 @@ inclusive hypothesis of Theorem~\ref{thm:alon}; hence $S$ is a self-sumset.
 No nonsumset has size at least $p-q_p$, and integrality gives
 \[
  M(p)\le p-q_p-1,
- \qquad d(p)\ge q_p+1>\frac1{4000}\sqrt{\frac p{\log p}}.     \tag{5.1}
+ \qquad d(p)\ge q_p+1>\frac1{4000}\sqrt{\frac p{\log p}}.
+                                                        \label{eq:lower-d}
 \]
 
 Lemma~\ref{lem:deletion} supplies a nonsumset $A_p$ with complement at most
 $5p^{1/2+\eta_p}$.  Hence
 \[
- d(p)=p-M(p)\le p-|A_p|\le5p^{1/2+\eta_p}.         \tag{5.2}
+ d(p)=p-M(p)\le p-|A_p|\le5p^{1/2+\eta_p}.         \label{eq:upper-d}
 \]
-Taking logarithms in (5.1) and (5.2) yields
+Taking logarithms in \eqref{eq:lower-d} and \eqref{eq:upper-d} yields
 \[
  \frac12-\frac{\log\log p}{2\log p}-\frac{\log4000}{\log p}
  <\frac{\log d(p)}{\log p}
@@ -320,7 +380,9 @@ $d(p)=p^{1/2+o(1)}$, and the defining identity $M(p)=p-d(p)$ gives
 $M(p)=p-p^{1/2+o(1)}$.
 \end{proof}
 
-\section{Verification and evidence boundary}
+\appendix
+
+\section{Verification and evidence boundary}\label{sec:evidence}
 
 The imported Wang repository was pinned at commit
 \[

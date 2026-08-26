@@ -13,7 +13,7 @@ boxes, or underfull boxes.
 
 Packaged PDF SHA-256:
 
-`ea783041314540e9ea319235606065d277bedfd2c2488e8300c05671934315a2`.
+`679f3348d88e2438e13a7c50cb037a0900c41abdad9334f8d4706b30f44310c3`.
 
 Two clean builds in separate temporary directories produced this same digest.
 
@@ -31,6 +31,25 @@ The package-level `MANIFEST.sha256` independently covers both TeX and PDF.
   determines at most one deletion set.
 - Equal summands and the empty root remain in scope.
 - Every exponent conversion displays its `o(1)` dependency.
+
+## Editorial structure
+
+The intended reader is a research mathematician familiar with elementary
+additive combinatorics and graph independence numbers. The manuscript does not
+re-teach those prerequisites. It instead follows the usual research-paper
+sequence: concise abstract, contextual introduction, main statement, imported
+results, new lemmas, assembled theorem proof, and a separate evidence appendix.
+
+- The introduction identifies the precise contribution and imported boundary.
+- A five-step roadmap exposes the role of each later section before notation
+  becomes dense.
+- The root-size bridge is a named lemma rather than an inference hidden inside
+  the counting argument.
+- Every displayed estimate used later has a semantic label and cross-reference.
+- Computational and source-audit evidence is outside the mathematical proof.
+
+Authorship and final venue-specific metadata remain deliberately unresolved in
+this private review draft.
 
 ## Formalization boundary
 
