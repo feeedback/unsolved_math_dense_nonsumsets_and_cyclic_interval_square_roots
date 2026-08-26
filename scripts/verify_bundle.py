@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import re
 import subprocess
 import sys
 from pathlib import Path, PurePosixPath
@@ -14,6 +15,13 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "MANIFEST.sha256"
 IGNORED_NAMES = {".DS_Store"}
 IGNORED_PARTS = {".git", "__pycache__"}
+FORBIDDEN_CONTENT = (
+    (re.compile(rb"\bR" + rb"IS-[0-9]+\b", re.IGNORECASE), "issue identifier"),
+    (re.compile(rb"\bLin" + rb"ear\b", re.IGNORECASE), "workflow service"),
+    (re.compile(rb"/Use" + rb"rs/[^/\s]+", re.IGNORECASE), "macOS home path"),
+    (re.compile(rb"/ho" + rb"me/[^/\s]+", re.IGNORECASE), "Unix home path"),
+    (re.compile(rb"\bris" + rb"(?:deep|ok)\b", re.IGNORECASE), "local identity"),
+)
 
 
 class VerificationError(ValueError):
@@ -82,6 +90,17 @@ def verify_checksums() -> dict[str, object]:
     return {"status": "verified", "files": len(entries)}
 
 
+def verify_public_content(paths: set[str]) -> None:
+    violations: list[str] = []
+    for relative in sorted(paths):
+        data = (ROOT / relative).read_bytes()
+        for pattern, name in FORBIDDEN_CONTENT:
+            if pattern.search(data):
+                violations.append(f"{relative}: {name}")
+    if violations:
+        raise VerificationError(f"public content audit failed: {violations}")
+
+
 def run_tests() -> None:
     subprocess.run(
         [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
@@ -103,6 +122,8 @@ def main() -> int:
     try:
         report = verify_checksums()
         print(f"checksums: verified {report['files']} files")
+        verify_public_content(set(parse_manifest()))
+        print("public content: sanitized")
         if not args.checksums_only:
             run_tests()
             print("finite checks: passed")

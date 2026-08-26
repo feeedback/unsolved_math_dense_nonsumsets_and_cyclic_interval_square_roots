@@ -2,8 +2,6 @@
 
 Date: 2026-08-26
 
-Linear issue: `RIS-560`
-
 ## Outcome
 
 The pinned external development at commit
